@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;700&family=Roboto+Mono&family=Share+Tech+Mono&display=swap');
+:root {
+    --darksienna: #49111C;
+    --platinum: #E5E7E6;
+    --ligthcoral: #F08080;
+    --bluesaphire: #006989;
+    --lightgoldenrod: #F2EFC7;
+    --numcolor: #A4BAB7;
+    --numhover: #E5E7E6;
+    --opcolor: #BC8034;
+    --ophover: #D5A021;
+    --clearcolor: #66A182;
+    --clearhover: #20FC8F;
+}
+
+#clear {
+    grid-area: clear;
+}
+
+#display {
+    grid-area: display;
+}
+
+#num1 {
+    grid-area: num1;
+}
+
+#num2 {
+    grid-area: num2;
+}
+
+#num3 {
+    grid-area: num3;
+}
+
+#num4 {
+    grid-area: num4;
+}
+
+#num5 {
+    grid-area: num5;
+}
+
+#num6 {
+    grid-area: num6;
+}
+
+#num7 {
+    grid-area: num7;
+}
+
+#num8 {
+    grid-area: num8;
+}
+
+#num9 {
+    grid-area: num9;
+}
+
+#num0 {
+    grid-area: num0;
+}
+
+#num-dot {
+    grid-area: num-dot;
+}
+
+#op-dvs {
+    grid-area: op-dvs;
+}
+
+body {
+    background-color: var(--darksienna);
+}
+
+h1 {
+    font-family: 'Azeret Mono', monospace;
+    color: var(--ligthcoral);
+    text-align: center;
+}
+
+#calc-wrapper {
+    display: grid;
+    grid-template-areas: "clear display display display" "num7 num8 num9 op-dvs" "num4 num5 num6 op-mult" "num1 num2 num3 op-sub" "num0 num-dot op-eq op-sum";
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 40vw;
+    margin: auto;
+    gap: 5px;
+}
+
+#display {
+    font-family: 'Share Tech Mono', monospace;
+    background-color: var(--lightgoldenrod);
+    color: var(--bluesaphire);
+    font-size: 1.375rem;
+    font-size: clamp(1.375rem, 0.9711538461538463rem + 1.7948717948717947vw, 2.25rem);
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 20px;
+}
+
+#clear, .number, .operator {
+    padding: 25% 0;
+    border: none;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--darksienna);
+}
+
+.number {
+    background-color: var(--numcolor);
+}
+
+.number:hover {
+    background-color: var(--numhover);
+}
+
+.operator {
+    background-color: var(--opcolor);
+}
+
+.operator:hover {
+    background-color: var(--ophover);
+}
+
+#clear {
+    background-color: var(--clearcolor);
+}
+
+#clear:hover {
+    background-color: var(--clearhover);
+}
+
+@media (max-width:540px) {
+    #calc-wrapper {
+        width: 60vw;
+    }
+}
+
+@media (max-width:360px) {
+    #calc-wrapper {
+        width: 80vw;
+    }
+}
