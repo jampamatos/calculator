@@ -101,7 +101,7 @@ h1 {
     padding-top: 20px;
 }
 
-#clear, .number, .operator {
+.clear, .number, .operator, .dot, #equal {
     padding: 25% 0;
     border: none;
     font-family: 'Roboto Mono', monospace;
@@ -110,11 +110,11 @@ h1 {
     color: var(--darksienna);
 }
 
-.number {
+.number, .dot, #equal {
     background-color: var(--numcolor);
 }
 
-.number:hover {
+.number:hover, .dot:hover, #equal:hover {
     background-color: var(--numhover);
 }
 
@@ -126,11 +126,11 @@ h1 {
     background-color: var(--ophover);
 }
 
-#clear {
+.clear {
     background-color: var(--clearcolor);
 }
 
-#clear:hover {
+.clear:hover {
     background-color: var(--clearhover);
 }
 
