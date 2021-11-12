@@ -7,8 +7,8 @@ const equalKey = document.querySelector('#equal')
 
 let operatorMemory = '';
 let numMemory = 0;
+let result = 0;
 let isOperating = false;
-// let resultMemory = 0;
 
 numberKeys.forEach(key => key.addEventListener("click", event => {
     if (isOperating === false) {
@@ -30,7 +30,13 @@ operatorKeys.forEach(key => key.addEventListener("click", event => {
         isOperating = true;
         key.classList.add('depressed');
     } else {
-        display.textContent = operate(operatorMemory, numMemory, Number.parseFloat(display.textContent, 10));
+        result = operate(operatorMemory, numMemory, Number.parseFloat(display.textContent, 10));
+        if (result.toString(10).length > 10)
+            display.textContent = "TOO BIG!";
+        else if (result > Number.MAX_VALUE)
+            display.textContent = "NOPE";
+        else 
+            display.textContent = result;
         numMemory = Number.parseFloat(display.textContent, 10);
         operatorMemory = key.dataset.value;
         isOperating = true;
@@ -57,7 +63,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    return parseFloat((a / b).toFixed(4));
 }
 
 function operate(op, n, m) {
@@ -78,10 +84,10 @@ function operate(op, n, m) {
 }
 
 function updateDisplay(newNumb) {
-    if (display.textContent.length <= 10 && display.textContent !== "0")
-        display.textContent += newNumb;
-    else
+    if (display.textContent == 0)
         display.textContent = newNumb;
+    else if (display.textContent.length <= 10 && display.textContent !== "0")
+        display.textContent += newNumb;
 }
 
 function addDot() {
@@ -102,13 +108,21 @@ function clearDisplay() {
     if (display.hasChildNodes())
         display.removeChild(display.firstChild);
     display.textContent = 0;
+    numMemory = 0;
+    operatorMemory = 0;
     Array.from(operatorKeys)
         .forEach(k => k.classList.remove('depressed'))
 }
 
 function equalCalc() {
     if (numMemory !== 0) {
-        display.textContent = operate(operatorMemory, numMemory, Number.parseFloat(display.textContent, 10));
+        result = operate(operatorMemory, numMemory, Number.parseFloat(display.textContent, 10));
+        if (result.toString(10).length > 10)
+            display.textContent = "TOO BIG!";
+        else if (result > Number.MAX_VALUE)
+            display.textContent = "NOPE";
+        else 
+            display.textContent = result;
         numMemory = 0;
         operatorMemory = '';
         Array.from(operatorKeys)
