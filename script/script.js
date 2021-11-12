@@ -4,6 +4,7 @@ const operatorKeys = document.querySelectorAll('.operator');
 const clearKey = document.querySelector('#clear');
 const dotKey = document.querySelector('#num-dot')
 const equalKey = document.querySelector('#equal')
+const backKey = document.querySelector('#backspace');
 
 let operatorMemory = '';
 let numMemory = 0;
@@ -50,6 +51,8 @@ dotKey.addEventListener('click', addDot);
 
 equalKey.addEventListener('click', equalCalc);
 
+backKey.addEventListener('click', backspace);
+
 function sum(a, b) {
     return a + b;
 }
@@ -88,6 +91,15 @@ function updateDisplay(newNumb) {
         display.textContent = newNumb;
     else if (display.textContent.length <= 10 && display.textContent !== "0")
         display.textContent += newNumb;
+}
+
+function backspace(){
+    if (display.textContent !== 0 && display.textContent.length > 1){
+        let sliceNumb = display.textContent.slice(0, -1);
+        display.textContent = sliceNumb;
+    } else{
+        display.textContent = 0;
+    }
 }
 
 function addDot() {
