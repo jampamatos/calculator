@@ -6,23 +6,35 @@ const dotKey = document.querySelector('#num-dot')
 const equalKey = document.querySelector('#equal')
 
 let operatorMemory = '';
-let resultMemory = 0;
+let numMemory = 0;
+let isOperating = false;
+// let resultMemory = 0;
 
 numberKeys.forEach(key => key.addEventListener("click", event => {
-    updateDisplay(key.dataset.value)
+    if (isOperating === false) {
+        updateDisplay(key.dataset.value);
+    } else {
+        display.textContent = '0';
+        updateDisplay(key.dataset.value);
+        isOperating = false;
+        Array.from(operatorKeys)
+            .forEach(k => k.classList.remove('depressed'))
+    }
+
 }));
 
 operatorKeys.forEach(key => key.addEventListener("click", event => {
-    if (resultMemory === 0) {
-        resultMemory = Number.parseFloat(display.textContent, 10);
-        clearDisplay();
+    if (numMemory === 0) {
+        numMemory = Number.parseFloat(display.textContent, 10);
         operatorMemory = key.dataset.value;
-        console.log(resultMemory);
+        isOperating = true;
+        key.classList.add('depressed');
     } else {
-        resultMemory = (operate(operatorMemory, resultMemory, Number.parseFloat(display.textContent, 10)))
+        display.textContent = operate(operatorMemory, numMemory, Number.parseFloat(display.textContent, 10));
+        numMemory = Number.parseFloat(display.textContent, 10);
         operatorMemory = key.dataset.value;
-        clearDisplay();
-        console.log(resultMemory);
+        isOperating = true;
+        key.classList.add('depressed');
     }
 }));
 
@@ -73,27 +85,36 @@ function updateDisplay(newNumb) {
 }
 
 function addDot() {
-    if (!display.textContent.includes('.'))
-        display.textContent += '.';
-    else if (display.textContent === "0" || display.textContent === '')
+    if (isOperating === false) {
+        if (!display.textContent.includes('.'))
+            display.textContent += '.';
+        else if (display.textContent === "0" || display.textContent === '')
+            display.textContent = '0.';
+    } else {
         display.textContent = '0.';
+        isOperating = false;
+        Array.from(operatorKeys)
+            .forEach(k => k.classList.remove('depressed'))
+    }
 }
 
 function clearDisplay() {
     if (display.hasChildNodes())
         display.removeChild(display.firstChild);
     display.textContent = 0;
+    Array.from(operatorKeys)
+        .forEach(k => k.classList.remove('depressed'))
 }
 
 function equalCalc() {
-    if (resultMemory !== 0) {
-        display.textContent = operate(operatorMemory, resultMemory, Number.parseFloat(display.textContent, 10));
+    if (numMemory !== 0) {
+        display.textContent = operate(operatorMemory, numMemory, Number.parseFloat(display.textContent, 10));
+        numMemory = 0;
         operatorMemory = '';
-        resultMemory = 0;
+        Array.from(operatorKeys)
+            .forEach(k => k.classList.remove('depressed'))
     }
 }
-
-
 
 
 /*Expressions-that-took-me-a-while-to-figure-out dump:
@@ -102,6 +123,24 @@ function equalCalc() {
   console.log(key.getAttribute('class'), key.dataset.value)
 }));
 
-->
+->  if (resultMemory === 0) {
+        resultMemory = Number.parseFloat(display.textContent, 10);
+        clearDisplay();
+        operatorMemory = key.dataset.value;
+        console.log(resultMemory);
+    } else {
+        resultMemory = (operate(operatorMemory, resultMemory, Number.parseFloat(display.textContent, 10)))
+        operatorMemory = key.dataset.value;
+        clearDisplay();
+        console.log(resultMemory);
+    }
+
+->  function equalCalc() {
+        if (resultMemory !== 0) {
+        display.textContent = operate(operatorMemory, resultMemory, Number.parseFloat(display.textContent, 10));
+        operatorMemory = '';
+        resultMemory = 0;
+    }
+}
 
 */

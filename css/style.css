@@ -122,7 +122,8 @@ h1 {
     background-color: var(--opcolor);
 }
 
-.operator:hover {
+.operator:hover,
+.depressed {
     background-color: var(--ophover);
 }
 
