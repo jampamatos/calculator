@@ -1,5 +1,5 @@
 const display = document.querySelector('#display');
-const numberKeys = Array.from(document.querySelectorAll('.number'));
+const numberKeys = document.querySelectorAll('.number');
 const operatorKeys = document.querySelectorAll('.operator');
 const clearKey = document.querySelector('#clear');
 const dotKey = document.querySelector('#num-dot')
@@ -10,6 +10,11 @@ let operatorMemory = '';
 let numMemory = 0;
 let result = 0;
 let isOperating = false;
+
+window.addEventListener('keydown', function(e){
+    const key = document.querySelector(`button[data-pad='${e.keyCode}']`);
+    key.click();
+});
 
 numberKeys.forEach(key => key.addEventListener("click", event => {
     if (isOperating === false) {
@@ -137,6 +142,7 @@ function equalCalc() {
             display.textContent = result;
         numMemory = 0;
         operatorMemory = '';
+        isOperating = true;
         Array.from(operatorKeys)
             .forEach(k => k.classList.remove('depressed'))
     }
